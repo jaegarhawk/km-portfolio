@@ -29,7 +29,7 @@ export const Navbar = () => {
             
                 {/* Desktop Navigation Row */}
                 <div className="hidden md:flex items-center">
-                    {/* Reshaped container into a flat, connected grid system instead of a pill pill bubble */}
+                    {/* Reshaped container into a flat, connected grid system instead of a pill bubble */}
                     <div className="border-2 border-white bg-black p-0.5 flex items-center shadow-[3px_3px_0px_0px_#ffffff]">
                         {navLinks.map((link, index) => {
                             // Perfect route match checking
@@ -67,7 +67,7 @@ export const Navbar = () => {
             </nav>
 
             {/* ========================================== */}
-            {/* 📱 MOBILE NAVIGATION SLIDEOUT PANEL        */}
+            {/* MOBILE NAVIGATION SLIDEOUT PANEL        */}
             {/* ========================================== */}
             {isMobileMenuOpen && (
                 // Replaced glass blur wrappers with a high-contrast ink frame overlay block

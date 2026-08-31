@@ -76,12 +76,14 @@ const Articles: React.FC<ArticlesProps> = async ({
         currentDisplayedPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
     }
 
-    // Build standard parameterized route URLs preserving search properties
+    // Build route URLs preserving search properties
     const buildPageRoute = (targetPage: number) => {
-        let path = `/blog?page=${targetPage}`;
-        if (categoryFilter) path += `&category=${categoryFilter}`;
-        if (searchFilter) path += `&q=${encodeURIComponent(searchFilter)}`;
-        return path;
+        if (targetPage === 1) {
+            return categoryFilter ? `/blog/category/${categoryFilter}` : '/blog';
+        }
+        return categoryFilter 
+            ? `/blog/category/${categoryFilter}/page/${targetPage}` 
+            : `/blog/page/${targetPage}`;
     };
 
     // Double Pagination Block with navigation index
@@ -176,7 +178,7 @@ const Articles: React.FC<ArticlesProps> = async ({
                                     </Link>
                                 )}
 
-                                {/* 🚀 Inline Contents parsed beautifully by our custom CSS .prose wrapper inside globals.css */}
+                                {/* Inline Contents parsed beautifully by our custom CSS .prose wrapper inside globals.css */}
                                 <div className="prose max-w-none text-black font-sans leading-relaxed text-sm whitespace-pre-line border-t-2 border-black border-dashed pt-4 select-text">
                                     {post.content}
                                 </div>

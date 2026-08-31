@@ -83,7 +83,7 @@ export default async function BlogPage({ params }: CatchAllProps) {
             </h1>
           </div>
           <div className="text-left sm:text-right text-[10px] font-black leading-tight border-t sm:border-t-0 sm:border-l border-slate-700 pt-2 sm:pt-0 sm:pl-4 mt-2 sm:mt-0 tracking-wider">
-            <p>WELCOME</p>
+            <p>WELCOME READER</p>
             <p>STATUS // ONLINE</p>
           </div>
         </header>
@@ -101,19 +101,20 @@ export default async function BlogPage({ params }: CatchAllProps) {
                 <Link href="/about" className="group block cursor-pointer">
                   <p className="font-black text-sm uppercase tracking-tight">{"Kendal Mitchell"}</p>
                   <p className="text-slate-700 font-normal">
-                    Building interactive applications, games, tools, and web layouts from the ground up.
+                    Building interactive web applications, games, and tools from the ground up.
                   </p>
                 </Link>
               </div>
 
               {/* Speech Bubble Block */}
-                <div className="relative border-2 border-black bg-black p-2.5 text-[11px] font-black text-white leading-normal rounded-xs shadow-[2px_2px_0px_0px_#000000]">
+                {/* Speech Bubble Block Overlay */}
+                <div className="relative border-2 border-black dark:border-white bg-black dark:bg-white p-2.5 text-[11px] font-black text-white dark:text-black leading-normal rounded-xs shadow-[2px_2px_0px_0px_#000000] dark:shadow-[2px_2px_0px_0px_#ffffff]">
                   {/* Decorative Speech Arrow Pointer Accent */}
-                  <div className="absolute -top-1.25 left-4 w-2 h-2 bg-black rotate-45"></div>
+                  <div className="absolute -top-1.25 left-4 w-2 h-2 bg-black dark:bg-white rotate-45"></div>
                   <p className="italic font-mono text-center tracking-wide">
                     「 No one stands on top of the world... 」
                   </p>
-                </div>
+              </div>
             </div>
 
             {/* Serialized Clock */}
@@ -175,24 +176,6 @@ export default async function BlogPage({ params }: CatchAllProps) {
                     {cat}
                   </Link>
                 ))}
-              </div>
-            </div>
-
-            {/* Past Logs Module Block Panel */}
-            <div className="manga-panel p-4 bg-white">
-              <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
-                // PAST_LOGS
-              </h4>
-              <div className="text-slate-600 text-[11px] leading-tight space-y-1">
-                <p>• ARCHIVE_INDEX // FULLY_SYNCED</p>
-                <p>• CODENAME // NEXT_EXPORT_STATIC</p>
-                <p className="font-mono text-[9px] text-slate-400 mt-2 uppercase">
-                  BUILD_VER_{new Date().toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                  }).replace(/\//g, '.')}
-                </p>
               </div>
             </div>
 
