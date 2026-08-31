@@ -7,20 +7,59 @@ export const metadata = {
   title: "Blog & Writings",
 };
 
-interface PageProps {
-  searchParams: Promise<{ page?: string; category?: string; q?: string }>;
+// Enforces zero-server static exports
+export const dynamic = "error";
+
+interface CatchAllProps {
+  params: Promise<{ filter?: string[] }>;
 }
 
-export default async function BlogPage({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const currentPage = params.page ? parseInt(params.page, 10) : 1;
-  const activeCategory = params.category || null;
-  const searchQuery = params.q || "";
-
-  // Fetch all posts down from your MDX reader on the server
-  const rawPosts = await getAllPosts() || [];
+// 1. Tell Next.js exactly what static pages to compile during the build
+export async function generateStaticParams() {
+  const rawPosts = (await getAllPosts()) || [];
   
-  // Quick data calculations to populate our sidebar metrics dynamically
+  // Extract all your categories from your actual tags
+  const tags = Array.from(
+    new Set(rawPosts.flatMap((p: any) => p.frontMatter?.tags || []))
+  ) as string[];
+
+  // Generate paths for the root blog
+  const paths: { filter?: string[] }[] = [
+    { filter: undefined } // Generates: /blog
+  ];
+
+  // Generate individual static files for each tag category
+  tags.forEach(tag => {
+    paths.push({ filter: ['category', tag] }); // Generates: /blog/category/[tag]
+  });
+
+  // Optional: If you use pagination pages (e.g. 5 pages max), loop and add them too
+  for (let i = 1; i <= 5; i++) {
+    paths.push({ filter: ['page', String(i)] }); // Generates: /blog/page/[number]
+  }
+
+  return paths;
+}
+
+// 2. Render the layout entirely on the server using Node fs
+export default async function BlogPage({ params }: CatchAllProps) {
+  const resolvedParams = await params;
+  const filterArray = resolvedParams.filter || [];
+
+  // Parse parameters out of the static URL structure instead of searchParams
+  let currentPage = 1;
+  let activeCategory: string | null = null;
+
+  if (filterArray[0] === 'page' && filterArray[1]) {
+    currentPage = parseInt(filterArray[1], 10) || 1;
+  }
+  if (filterArray[0] === 'category' && filterArray[1]) {
+    activeCategory = filterArray[1];
+  }
+
+  // Fetch all posts using your Node.js file system reader safely on the server
+  const rawPosts = (await getAllPosts()) || [];
+  
   const allCategories = Array.from(
     new Set(rawPosts.flatMap((p: any) => p.frontMatter?.tags || []))
   ) as string[];
@@ -30,8 +69,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
     .slice(0, 5);
 
   return (
-    // 💡 Theme Palette
-    <main className="min-h-screen bg-[#fcfcfc] text-[#000000] font-sans antialiased selection:bg-[#000000] selection:text-primary-foreground py-8">
+    <main className="min-h-screen bg-[#fcfcfc] text-[#000000] font-sans antialiased py-8">
       <div className="container mx-auto px-4 max-w-6xl">
         
         {/* Title Header Banner Area */}
@@ -53,56 +91,23 @@ export default async function BlogPage({ searchParams }: PageProps) {
         {/* Dynamic Split Dashboard Frame Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* LEFT COLUMN: SIDEBAR          */}
+          {/* LEFT COLUMN: SIDEBAR */}
           <aside className="lg:col-span-4 space-y-6 font-mono text-xs font-bold text-black">
-            
-            {/* Blog Administrator Info */}
             <div className="manga-panel p-4 bg-white">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
                 // AUTHOR_PROFILE
               </h4>
               <div className="space-y-2 leading-tight">
                 <Link href="/about" className="group block cursor-pointer">
-                <p className="font-black text-sm uppercase tracking-tight">{"Kendal Mitchell"}</p>
-                <p className="text-slate-700 font-normal">
-                  Building interactive applications, games, tools, and web layouts from the ground up.
-                </p>
-                </Link>
-                {/* Speech Bubble Block Overlay */}
-                <div className="relative border-2 border-black dark:border-white bg-black dark:bg-white p-2.5 text-[11px] font-black text-white dark:text-black leading-normal rounded-xs shadow-[2px_2px_0px_0px_#000000] dark:shadow-[2px_2px_0px_0px_#ffffff]">
-                  {/* Decorative Speech Arrow Pointer Accent */}
-                  <div className="absolute -top-1.25 left-4 w-2 h-2 bg-black dark:bg-white rotate-45"></div>
-                  
-                  <p className="italic font-mono text-center tracking-wide">
-                    「 No one stands on top of the world... 」
+                  <p className="font-black text-sm uppercase tracking-tight">{"Kendal Mitchell"}</p>
+                  <p className="text-slate-700 font-normal">
+                    Building interactive applications, games, tools, and web layouts from the ground up.
                   </p>
-                </div>
+                </Link>
               </div>
             </div>
 
-            {/* Article Search */}
-            <div className="manga-panel p-4 bg-white">
-              <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
-                // SEARCH_INDEX
-              </h4>
-              <form action="/blog" method="GET" className="flex gap-2">
-                <input 
-                  type="text" 
-                  name="q"
-                  defaultValue={searchQuery}
-                  placeholder="Keyword search..." 
-                  className="w-full bg-white border-2 border-black rounded-xs px-3 py-1.5 text-xs text-black font-bold focus:outline-none focus:bg-slate-50 transition-colors"
-                />
-                <button 
-                  type="submit" 
-                  className="bg-black text-white px-4 font-black border-2 border-black hover:bg-white hover:text-black transition-colors cursor-pointer"
-                >
-                  GO
-                </button>
-              </form>
-            </div>
-
-            {/* Calendar Box */}
+            {/* Serialized Clock */}
             <div className="manga-panel p-4 bg-white text-center">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase text-left mb-3 w-full">
                 // SERIALIZATION_CLOCK
@@ -132,7 +137,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
               </ul>
             </div>
 
-            {/* Category */}
+            {/* Category Elements updated to map to clean static route segments */}
             <div className="manga-panel p-4 bg-white">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
                 // CLASSIFICATION
@@ -151,7 +156,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
                 {allCategories.map((cat) => (
                   <Link 
                     key={cat} 
-                    href={`/blog?category=${cat}`} 
+                    href={`/blog/category/${cat}`} 
                     className={`px-2 py-1 border-2 border-black font-black text-[10px] uppercase rounded-xs transition-colors ${
                       activeCategory === cat 
                         ? 'bg-black text-white' 
@@ -163,27 +168,14 @@ export default async function BlogPage({ searchParams }: PageProps) {
                 ))}
               </div>
             </div>
-
-            {/* Past Logs */}
-            <div className="manga-panel p-4 bg-white">
-              <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-2">
-                // ARCHIVE
-              </h4>
-              <p className="text-slate-500 font-normal text-[11px]">
-                No entries yet archived.
-              </p>
-            </div>
           </aside>
 
-          {/* ========================================== */}
-          {/* RIGHT COLUMN: REUSABLE ARTICLES FEED  */}
-          {/* ========================================== */}
+          {/* RIGHT COLUMN: MAIN CONTENT - ASYNC SERVER COMPONENT LOADS FINES */}
           <div className="lg:col-span-8">
             <Articles 
               currentPage={currentPage} 
-              postsPerPage={3} 
-              categoryFilter={activeCategory}
-              searchFilter={searchQuery}
+              categoryFilter={activeCategory} 
+              searchFilter="" // Statically generated search queries cannot happen at build-time
             />
           </div>
 
