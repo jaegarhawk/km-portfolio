@@ -105,6 +105,44 @@ export default async function BlogPage({ params }: CatchAllProps) {
                   </p>
                 </Link>
               </div>
+
+              {/* Speech Bubble Block */}
+                <div className="relative border-2 border-black bg-black p-2.5 text-[11px] font-black text-white leading-normal rounded-xs shadow-[2px_2px_0px_0px_#000000]">
+                  {/* Decorative Speech Arrow Pointer Accent */}
+                  <div className="absolute -top-1.25 left-4 w-2 h-2 bg-black rotate-45"></div>
+                  <p className="italic font-mono text-center tracking-wide">
+                    「 No one stands on top of the world... 」
+                  </p>
+                </div>
+            </div>
+
+            {/* Article Search Index  */}
+            <div className="manga-panel p-4 bg-white">
+              <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
+                // SEARCH_INDEX
+              </h4>
+              <form 
+                onSubmit={(e: any) => {
+                  e.preventDefault();
+                  const query = e.target.q.value;
+                  // Redirect via client routing to look like search parameters safely
+                  if (query) window.location.href = `?q=${encodeURIComponent(query)}`;
+                }} 
+                className="flex gap-2"
+              >
+                <input 
+                  type="text" 
+                  name="q"
+                  placeholder="Keyword search..." 
+                  className="w-full bg-white border-2 border-black rounded-xs px-3 py-1.5 text-xs text-black font-bold focus:outline-none focus:bg-slate-50 transition-colors"
+                />
+                <button 
+                  type="submit" 
+                  className="bg-black text-white px-4 font-black border-2 border-black hover:bg-white hover:text-black transition-colors cursor-pointer"
+                >
+                  GO
+                </button>
+              </form>
             </div>
 
             {/* Serialized Clock */}
@@ -168,6 +206,25 @@ export default async function BlogPage({ params }: CatchAllProps) {
                 ))}
               </div>
             </div>
+
+            {/* Past Logs Module Block Panel */}
+            <div className="manga-panel p-4 bg-white">
+              <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
+                // PAST_LOGS
+              </h4>
+              <div className="text-slate-600 text-[11px] leading-tight space-y-1">
+                <p>• ARCHIVE_INDEX // FULLY_SYNCED</p>
+                <p>• CODENAME // NEXT_EXPORT_STATIC</p>
+                <p className="font-mono text-[9px] text-slate-400 mt-2 uppercase">
+                  BUILD_VER_{new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                  }).replace(/\//g, '.')}
+                </p>
+              </div>
+            </div>
+
           </aside>
 
           {/* RIGHT COLUMN: MAIN CONTENT - ASYNC SERVER COMPONENT LOADS FINES */}
