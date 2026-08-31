@@ -62,7 +62,7 @@ export const Navbar = () => {
                     className="md:hidden border-2 border-white bg-black text-white p-2 rounded-xs cursor-pointer shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none" 
                     onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                 >
-                    {isMobileMenuOpen ? <X size={16} className="stroke-[3]" /> : <Menu size={16} className="stroke-[3]" />}
+                    {isMobileMenuOpen ? <X size={16} className="stroke-3" /> : <Menu size={16} className="stroke-3" />}
                 </button>
             </nav>
 

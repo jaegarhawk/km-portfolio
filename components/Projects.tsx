@@ -33,6 +33,8 @@ interface ProjectsProps {
 
 const Projects: React.FC<ProjectsProps> = ({ initialProjects, limit, showFilter = true }) => {
   
+  const basePath = process.env.__NEXT_ROUTER_BASEPATH || '';
+
   // check state for active dropdown value
   const [filterType, setFilterType] = useState<string>("all");
 
@@ -98,7 +100,7 @@ const Projects: React.FC<ProjectsProps> = ({ initialProjects, limit, showFilter 
               {/* Card Thumbnail Core Image Shell */}
               <div className="relative overflow-hidden aspect-video border-b-3 border-black bg-slate-100">
                 <img 
-                  src={project.image} 
+                  src={`${basePath}${project.image}`} 
                   alt={project.title} 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-102"
                 />
