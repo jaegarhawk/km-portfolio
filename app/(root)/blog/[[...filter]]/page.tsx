@@ -116,35 +116,6 @@ export default async function BlogPage({ params }: CatchAllProps) {
                 </div>
             </div>
 
-            {/* Article Search Index  */}
-            <div className="manga-panel p-4 bg-white">
-              <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
-                // SEARCH_INDEX
-              </h4>
-              <form 
-                onSubmit={(e: any) => {
-                  e.preventDefault();
-                  const query = e.target.q.value;
-                  // Redirect via client routing to look like search parameters safely
-                  if (query) window.location.href = `?q=${encodeURIComponent(query)}`;
-                }} 
-                className="flex gap-2"
-              >
-                <input 
-                  type="text" 
-                  name="q"
-                  placeholder="Keyword search..." 
-                  className="w-full bg-white border-2 border-black rounded-xs px-3 py-1.5 text-xs text-black font-bold focus:outline-none focus:bg-slate-50 transition-colors"
-                />
-                <button 
-                  type="submit" 
-                  className="bg-black text-white px-4 font-black border-2 border-black hover:bg-white hover:text-black transition-colors cursor-pointer"
-                >
-                  GO
-                </button>
-              </form>
-            </div>
-
             {/* Serialized Clock */}
             <div className="manga-panel p-4 bg-white text-center">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase text-left mb-3 w-full">
