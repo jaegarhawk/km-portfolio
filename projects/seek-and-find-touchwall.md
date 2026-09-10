@@ -2,8 +2,8 @@
 slug: "seek-and-find-touchwall"
 title: "Seek-and-Find Pediatric ER Word Touchwall"
 description: "An interactive ten-foot wide play area supporting up to four simultaneous users"
-image: "/assets/img/seekndfind.webp"
-tags: ["React", "Typescript", "NodeJS"]
+image: "/assets/img/seekndfind.png"
+tags: ["ReactJS", "NodeJS"]
 link: "#"
 type: "interactive"
 startDate: "2024-05"
