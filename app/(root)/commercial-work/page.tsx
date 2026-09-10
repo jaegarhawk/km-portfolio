@@ -12,13 +12,11 @@ export const metadata = {
 export default async function CommercialPage() {
   const rawProjects = getAllProjects() || [];
   
-  // Cast the array cleanly using your master schema type
   const allProjects = rawProjects as Project[];
   
-  // This executes flawlessly without duplicate type definitions!
   const commercialProjects = allProjects.filter(project => project.isCommercial === true);
 
-  // Helper function to render high-contrast clearance state stamps
+  // render access stamps
   const renderAccessBadge = (state: "public" | "protected" | "nda" | undefined) => {
     const tier = state || "public"; // Fallback to public if undefined
     switch (tier) {
@@ -45,7 +43,7 @@ export default async function CommercialPage() {
           </h1>
         </header>
 
-        {/* Dense Client Grid Feed */}
+        {/* Client Grid Feed */}
         <div className="space-y-8">
           {commercialProjects.map((project) => (
             <div 
@@ -59,13 +57,14 @@ export default async function CommercialPage() {
                   alt={project.title} 
                   className="w-full h-full object-cover select-none" 
                 />
-                {/* Flat ink category stamp floating over the top-left of the inner graphic panel */}
+                {/* category stamp floating */}
                 <div className="absolute top-2 left-2 z-10 font-mono text-[9px] font-black uppercase tracking-wider bg-black text-white px-2 py-0.5 border border-white shadow-[1px_1px_0px_0px_#000000]">
                   {project.type === "game" && "🎮 GAME"}
                   {project.type === "web" && "🌐 WEB"}
                   {project.type === "interactive" && "🕹️ INTERACTIVE"}
-                  {/* Fallback to capture anything else safely during file drafting */}
-                  {!["game", "web", "interactive"].includes(project.type) && `📂 ${project.type}`}
+                  {project.type === "tool" && "🔧 TOOL"}
+                  {/* Fallback */}
+                  {!["game", "web", "interactive", "tool"].includes(project.type) && `📂 ${project.type}`}
                 </div>
               </div>
 
