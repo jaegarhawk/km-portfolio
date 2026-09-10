@@ -11,13 +11,6 @@ import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 import Link from "next/link";
 
 const Home = () => {
-  
-  const companyLogos = [
-  { img: "/assets/img/dutytocountry-517x291.jpg", alt: "Company 1" },
-  { img: "/assets/img/gg_logo.png", alt: "Company 2" },
-  { img: "/assets/img/sk8r-1250x708.png", alt: "Company 3" },
-  { img: "/assets/img/momentum-1280x720.jpg", alt: "Company 4" },
-  ];
 
   const clientList = [
   { text: "Penn Medicine Lancaster General Health", alt: "Company 1" },
@@ -35,12 +28,6 @@ const Home = () => {
       {/* Demo Reel */}
       <section className="relative w-full overflow-auto">
         <DemoReel />
-        {/* Explore More */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 ">
-          <a href="#intro">
-            <ExploreBtn />
-          </a>
-        </div>
       </section>
 
       {/* Intro | Short Bio */}

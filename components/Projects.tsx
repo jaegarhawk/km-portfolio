@@ -14,7 +14,7 @@ export interface Project {
   link: string;
   github?: string;
   itch?: string;
-  type: "game" | "web" | "interactive"; // add more here as needed
+  type: "game" | "web" | "interactive" | "tool" ; // add more here as needed
   startDate: string; // Format: "YYYY-MM"
   endDate?: string; // Format: "YYYY-MM" optional if ongoing
   ongoing: boolean;
@@ -82,6 +82,7 @@ const Projects: React.FC<ProjectsProps> = ({ initialProjects, limit, showFilter 
                 <option value="game">GAMES</option>
                 <option value="web">WEB</option>
                 <option value="interactive">INTERACTIVE</option>
+                <option value="tool">TOOLS</option>
               </select>
               <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-black">
                 ▼
@@ -105,7 +106,7 @@ const Projects: React.FC<ProjectsProps> = ({ initialProjects, limit, showFilter 
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-102"
                 />
                 
-                {/* 🚀 Publication Schedule Date Badge Top-Right */}
+                {/* Publication Schedule Date Badge Top-Right */}
                 <div className="absolute top-3 right-3 z-20">
                   <span className="text-[10px] uppercase font-black font-mono tracking-wider px-2.5 py-1 rounded-xs bg-black text-white border-2 border-white shadow-[2px_2px_0px_0px_#000000]">
                     {project.ongoing ? "ONGOING" : `${project.startDate}`}
@@ -115,7 +116,7 @@ const Projects: React.FC<ProjectsProps> = ({ initialProjects, limit, showFilter 
                 {/* Category Badge Top-Left */}
                 <div className="absolute top-3 left-3 z-20">
                   <span className="text-[10px] font-black font-mono tracking-wider px-2 py-0.5 rounded-xs bg-white text-black border-2 border-black">
-                    {project.type === "game" ? "🎮 GAME" : "🌐 WEB"}
+                    {project.type === "game" ? "🎮 GAME" : project.type === "web" ? "🌐 WEB" : project.type === "interactive" ? "✋ INTERACTIVE" : "🛠️ TOOLS"}
                   </span>
                 </div>
               </div>

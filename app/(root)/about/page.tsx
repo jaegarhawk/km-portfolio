@@ -34,7 +34,7 @@ const About = () => {
         </div>
 
 
-        {/* Profile Bio - Text Content*/}
+        {/* Profile Bio */}
         <div className='relative max-w-lg mx-auto'>
           <br />
           <p className="text-2xl justify-center">
@@ -51,7 +51,7 @@ const About = () => {
             Since then, I've been fortunate enough to work across a diverse set of industries and languages. 
             No matter the stack, my ultimate goal remains the same: to continuously grow as an engineer, teammate, and person. <br /><br />
             
-            When I'm not at work, you can find me watching movies, reading, or playing Tekken.<br /><br />
+            When I'm not at work, you can find me watching movies, reading comics, or playing Tekken.<br /><br />
 
             For inquiries, please email me at k1mitchell@outlook.com <br /><br />
           </p>
