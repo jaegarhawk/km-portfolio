@@ -1,0 +1,83 @@
+---
+title: Exploring Graphics Programming with Vulkan
+excerpt: Experimenting with Vulkan, GLFW and C++
+date: 2026-09-11
+author: "Kendal Mitchell"
+image: "/assets/img/posts/9-11-26/fatal-fury-mai-shiranui.jpg"
+tags: ["CMake", "C++17", "GLFW", "GLM", "Slang"]
+---
+
+![Mai Shiranui in Fatal Fury: City of the Wolves](/assets/img/posts/9-11-26/fatal-fury-mai-shiranui.jpg)
+
+<small>*Image credit: SNK via [GamingBolt](https://gamingbolt.com/fatal-fury-city-of-the-wolves-mai-shiranui-showcased-in-new-trailer).*</small>
+
+## Bridging a Gap
+I've always been interested in how game visuals are created.  A few previous projects have required me to do some visual work from 
+shader implementation to pixel recoloring, so I took it as a sign to finally delve further into it.
+
+While working in Blender, I kept finding myself knowing what tools to use, but not always *why* they were being used.  
+
+*i.e. the use of the Catmulli-Clark algorithm for a subdivision surface modifier.*
+
+I tend to hate not knowing why I'm doing something, so I wanted to better understand what I was working with. 
+And in training AI or humans, reinforcement learning goes a long way.
+
+So I took to working on building my own PBR. While my short term goal is to better embed GPU rendering concepts like the SwapChain and Framebuffers in my head.
+My long term goal is use the knowledge towards efforts in non-photorealistic rendering. 
+I love the visual presentation of games like Okami and Dishonored, so I'm building up the skillset to contribute back to those sorts of endeavors.
+
+## GLFW & GPU Rendering
+
+So far, I've been utilizing the GLFW library for creating windows and surfaces amongst other needs.
+It can't be understated just how dense Vulkan is, so I *don't anticipate learning everything*. 
+I already knew that Software (CPU) rendering was the legacy method. Slower in comparison to today's much faster and more powerful GPU rendering.
+Learning about things like queue family layouts and how to explicitly setup filters to decide which GPU to use in a computer has been super cool.
+
+
+## Tessellating Triangles
+
+I was always instructed that game engines would convert models into tris. I see why considerably moreso now. It's been a solid refresher
+from my previous studies in Game Engine Architecture. *(shoutout Jason Gregory)*
+
+Since game engines can primarily concern themselves with rendering surfaces, a triangle's an exceptionally
+convenient polygon to use in comparison to other polyhedrons.
+
+- A nice and simple polygon
+- It's always planar
+- Always remains triangular under most kinds of transformation (could degenerate into a line segment)
+- Practically everything's designed around triangle rasterization
+
+For now, the focus was getting a practice triangle rendered in a window, à la Vulkan Triangle Drawing in the manners of old.
+
+A basic slang vertex and fragment shader for a triangle:
+
+```slang
+[shader("vertex")]
+float4 vertMain(uint id : SV_VertexID) : SV_Position {
+	float2 pos[3] = {
+		float2(0, -0.5),
+		float2(0.5, 0.5),
+		float2(-0.5, 0.5)
+	};
+
+	return float4(pos[id], 0, 1);
+}
+
+[shader("fragment")]
+float4 fragMain() : SV_Target {
+	return float4(1,0,0,1);
+}
+```
+<small>Can't believe I finally know what I'm looking at.</small>
+
+![Rendering a Triangle](/assets/img/posts/9-11-26/vulkanpbr-01.png)
+<small>Such a simple shape with so much behind it.</small>
+
+## Plans for Later
+Can't say just yet how far I'll take this project. 
+There's all sorts of features I could add onto it. From model loading to skyboxes to all the different lighting features out there.
+There's a quite a few post-processing techniques I've utilized across Godot, Unreal Engine, and Unity 
+that I'd like to try my hand at implementing here. As always, there's plenty more to learn.
+
+
+

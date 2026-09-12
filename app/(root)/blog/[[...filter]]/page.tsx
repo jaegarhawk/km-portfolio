@@ -181,7 +181,7 @@ export default async function BlogPage({ params }: CatchAllProps) {
 
           </aside>
 
-          {/* RIGHT COLUMN: MAIN CONTENT - ASYNC SERVER COMPONENT LOADS FINES */}
+          {/* RIGHT COLUMN: MAIN CONTENT  */}
           <div className="lg:col-span-8">
             <Articles 
               currentPage={currentPage} 

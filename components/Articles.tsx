@@ -13,7 +13,7 @@ export interface PostFrontMatter {
 export interface Post {
   slug: string;
   frontMatter: PostFrontMatter;
-  content: string; // The rich raw content string
+  content: string; // The rich raw content 
   isExternal?: boolean;
   externalUrl?: string;
 }
@@ -154,47 +154,60 @@ const Articles: React.FC<ArticlesProps> = async ({
                         : "UNDATED_MANUSCRIPT";
 
                     return (
-                        <article key={post.slug} className="manga-panel bg-white overflow-hidden">
-                            
-                            {/* Publication Date Header Banner Section */}
-                            <div className="bg-black text-white px-5 py-2 flex justify-between items-center font-mono text-[10px] font-black uppercase tracking-widest">
-                                <span>CHAPTER_LOG // {formattedDate}</span>
-                                <span className="text-slate-400">PAGE_ID: {post.slug.slice(0, 6)}</span>
-                            </div>
+                        <article 
+                        key={post.slug} 
+                        className="manga-panel relative bg-white overflow-hidden border-2 border-black isolate"
+                        >
+                            {/* Dynamic Faint Background Image Layer */}
+                            {post.frontMatter?.image && (
+                                <div 
+                                    className="absolute inset-0 opacity-20 pointer-events-none select-none z-0 bg-cover bg-center mix-blend-multiply"
+                                    style={{ backgroundImage: `url('${post.frontMatter.image}')` }}
+                                />
+                            )}
 
-                            <div className="p-6 space-y-4">
-                                {/* Title leading into dynamic subpage node */}
-                                {post.isExternal ? (
-                                    <a href={post.externalUrl} target="_blank" rel="noreferrer" className="inline-block group">
-                                        <h3 className="text-xl font-black text-black group-hover:underline tracking-tight uppercase">
-                                            {post.frontMatter?.title} <span className="text-xs font-normal font-mono text-slate-500">[EXTERNAL ↗]</span>
-                                        </h3>
-                                    </a>
-                                ) : (
-                                    <Link href={`/posts/${post.slug}`} className="inline-block group">
-                                        <h3 className="text-xl font-black text-black group-hover:underline tracking-tight uppercase">
-                                            {post.frontMatter?.title || "Untitled Fragment"}
-                                        </h3>
-                                    </Link>
-                                )}
-
-                                {/* Inline Contents parsed beautifully by our custom CSS .prose wrapper inside globals.css */}
-                                <div className="prose max-w-none text-black font-sans leading-relaxed text-sm whitespace-pre-line border-t-2 border-black border-dashed pt-4 select-text">
-                                    {post.content}
+                            {/* Content Wrapper  */}
+                            <div className="relative z-10 flex flex-col h-full bg-transparent">
+                                
+                                {/* Publication Date Header Banner Section */}
+                                <div className="bg-black text-white px-5 py-2 flex justify-between items-center font-mono text-[10px] font-black uppercase tracking-widest">
+                                    <span>CHAPTER_LOG // {formattedDate}</span>
+                                    <span className="text-slate-400">PAGE_ID: {post.slug.slice(0, 6)}</span>
                                 </div>
 
-                                {/* Bottom Tag Meta list inside flat manga brackets */}
-                                {post.frontMatter?.tags && post.frontMatter.tags.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 pt-3 border-t border-black/10 font-mono text-xs font-bold text-slate-500">
-                                        <span className="text-black font-black uppercase">INDEX_TAGS:</span>
-                                        {post.frontMatter.tags.map((tag: string) => (
-                                            <Link key={tag} href={`/blog?category=${tag}`} className="text-black hover:underline">
-                                                [{tag.toLowerCase()}]
-                                            </Link>
-                                        ))}
+                                <div className="p-6 space-y-4 flex-1">
+                                    {/* Title */}
+                                    {post.isExternal ? (
+                                        <a href={post.externalUrl} target="_blank" rel="noreferrer" className="inline-block group">
+                                            <h3 className="text-xl font-black text-black group-hover:underline tracking-tight uppercase">
+                                                {post.frontMatter?.title} <span className="text-xs font-normal font-mono text-slate-500">[EXTERNAL ↗]</span>
+                                            </h3>
+                                        </a>
+                                    ) : (
+                                        <Link href={`/posts/${post.slug}`} className="inline-block group">
+                                            <h3 className="text-xl font-black text-black group-hover:underline tracking-tight uppercase">
+                                                {post.frontMatter?.title || "Untitled Fragment"}
+                                            </h3>
+                                        </Link>
+                                    )}
+
+                                    {/* Inline Contents */}
+                                    <div className="prose max-w-none text-black font-sans leading-relaxed text-sm whitespace-pre-line border-t-2 border-black border-dashed pt-4 select-text">
+                                        {post.content}
                                     </div>
-                                //Primary links buttons layer panel inside cards block if you ever choose to append them later
-                                )}
+
+                                    {/* Bottom Tag Meta list */}
+                                    {post.frontMatter?.tags && post.frontMatter.tags.length > 0 && (
+                                        <div className="flex flex-wrap gap-2 pt-3 border-t border-black/10 font-mono text-xs font-bold text-slate-500">
+                                            <span className="text-black font-black uppercase">CATEGORIES:</span>
+                                            {post.frontMatter.tags.map((tag: string) => (
+                                                <Link key={tag} href={`/blog?category=${tag}`} className="text-black hover:underline">
+                                                    [{tag.toLowerCase()}]
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </article>
                     );
