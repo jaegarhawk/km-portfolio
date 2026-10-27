@@ -10,7 +10,7 @@ endDate: "2024-06"
 ongoing: true
 isCommercial: true
 access: "nda"
-impact: "Worked on gameplay systems for an unannounced project at an indie studio."
+impact: "Engineered and implemented core gameplay systems for an unannounced indie project using the Ren’Py framework, including dynamic character customization, data serialization, and a custom match-3 style minigame."
 ---
 
 # Unannounced Title

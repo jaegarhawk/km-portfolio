@@ -14,11 +14,11 @@ interface CatchAllProps {
   params: Promise<{ filter?: string[] }>;
 }
 
-// 1. Tell Next.js exactly what static pages to compile during the build
+// setup needed static pages to compile during the build
 export async function generateStaticParams() {
   const rawPosts = (await getAllPosts()) || [];
   
-  // Extract all your categories from your actual tags
+  // extract all your categories from your actual tags
   const tags = Array.from(
     new Set(rawPosts.flatMap((p: any) => p.frontMatter?.tags || []))
   ) as string[];
@@ -28,12 +28,12 @@ export async function generateStaticParams() {
     { filter: undefined } // Generates: /blog
   ];
 
-  // Generate individual static files for each tag category
+  // Create individual static files for each tag category
   tags.forEach(tag => {
     paths.push({ filter: ['category', tag] }); // Generates: /blog/category/[tag]
   });
 
-  // Optional: If you use pagination pages (e.g. 5 pages max), loop and add them too
+  // create pagination pages (set to max of 5 pages), loop and add them too
   for (let i = 1; i <= 5; i++) {
     paths.push({ filter: ['page', String(i)] }); // Generates: /blog/page/[number]
   }
@@ -41,7 +41,7 @@ export async function generateStaticParams() {
   return paths;
 }
 
-// 2. Render the layout entirely on the server using Node fs
+// need to render layout on server entirely
 export default async function BlogPage({ params }: CatchAllProps) {
   const resolvedParams = await params;
   const filterArray = resolvedParams.filter || [];
@@ -120,12 +120,12 @@ export default async function BlogPage({ params }: CatchAllProps) {
             {/* Serialized Clock */}
             <div className="manga-panel p-4 bg-white text-center">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase text-left mb-3 w-full">
-                // SERIALIZATION_CLOCK
+                // CURRENT_TIME
               </h4>
               <div className="text-black font-black uppercase text-sm py-2 border-2 border-dashed border-black/40 bg-slate-50 rounded-xs">
                 {new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}
                 <div className="text-[9px] mt-0.5 font-mono text-slate-500 font-normal normal-case">
-                  System state: Synced // Page_{currentPage}
+                  Current Page: Page_{currentPage}
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default async function BlogPage({ params }: CatchAllProps) {
             {/* New & latest Articles */}
             <div className="manga-panel p-4 bg-white">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
-                // LATEST_CHAPTERS
+                // LATEST_ARTICLES
               </h4>
               <ul className="space-y-2 list-none pl-0">
                 {recentArticles.map((post: any) => (
@@ -150,7 +150,7 @@ export default async function BlogPage({ params }: CatchAllProps) {
             {/* Category Elements updated to map to clean static route segments */}
             <div className="manga-panel p-4 bg-white">
               <h4 className="text-white bg-black px-2 py-0.5 inline-block text-[10px] font-black tracking-wider uppercase mb-3">
-                // CLASSIFICATION
+                // CATEGORIES
               </h4>
               <div className="flex flex-wrap gap-2">
                 <Link 
@@ -161,7 +161,7 @@ export default async function BlogPage({ params }: CatchAllProps) {
                       : 'bg-white text-black hover:bg-slate-100'
                   }`}
                 >
-                  ALL_CHAPTERS
+                  ALL
                 </Link>
                 {allCategories.map((cat) => (
                   <Link 

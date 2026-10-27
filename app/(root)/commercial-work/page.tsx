@@ -91,7 +91,7 @@ export default async function CommercialPage() {
 
                   {/* Core Impact Text Statement */}
                   <p className="text-sm font-sans font-normal text-slate-800 leading-relaxed max-w-2xl mt-4">
-                    <strong className="font-black text-black block mb-1 uppercase tracking-tight font-mono text-xs">// KEY_ACHIEVEMENT_METRIC:</strong>
+                    <strong className="font-black text-black block mb-1 uppercase tracking-tight font-mono text-xs">// KEY ACHIEVEMENTS:</strong>
                     "{project.impact || project.description}"
                   </p>
                 </div>
@@ -106,7 +106,7 @@ export default async function CommercialPage() {
                 </div>
               </div>
 
-              {/* RIGHT COLUMN: Direct Launch Strip Links */}
+              {/* RIGHT COLUMN: Direct Launch Links */}
               {((project.link && project.link !== "#") || project.github) && (
                 <div className="border-t-3 md:border-t-0 md:border-l-3 border-black bg-slate-50 min-w-full md:min-w-30 flex md:flex-col items-center justify-center p-4 gap-4 font-mono text-[10px] font-black uppercase text-center shrink-0">
                   {project.link && project.link !== "#" && (
@@ -128,7 +128,7 @@ export default async function CommercialPage() {
           {/* Zero Results Safe Handling Fallback */}
           {commercialProjects.length === 0 && (
             <div className="text-center py-16 font-mono font-black border-3 border-dashed border-white bg-black text-slate-500 p-4">
-              [!] REGISTRY_EMPTY: ZERO COMMERCIAL NODES DETECTED IN ACTIVE POOL
+              [!] NO RESULTS FOUND: NO CONTENT AVAILABLE FOR SPECIFIED QUERY
             </div>
           )}
         </div>

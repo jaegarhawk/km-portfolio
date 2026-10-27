@@ -14,7 +14,7 @@ export async function generateStaticParams() {
     }));
 }
 
-// Custom components passed into the MDX compiler to preserve the style theme
+// Custom components to preserve the style theme
 const mdxComponents = {
   h1: (props: any) => <h1 className="text-3xl font-black uppercase text-black tracking-tight mb-6 mt-8" {...props} />,
   h2: (props: any) => <h2 className="text-xl font-black uppercase text-black tracking-tight border-b-3 border-black border-dashed pb-1.5 mb-4 mt-10" {...props} />,
@@ -31,12 +31,12 @@ const mdxComponents = {
     </div>
   ),
   
-  // 🚀 FORCED BLACK BACKGROUND FOR INLINE CODE `text`
+  // BLACK BACKGROUND FOR INLINE CODE `text`
   code: (props: any) => (
     <code className="bg-black text-white! font-mono font-bold text-xs px-1.5 py-0.5 rounded-xs inline-block" {...props} />
   ),
   
-  // 🚀 FORCED BLACK BACKGROUND FOR MULTI-LINE CODE BLOCKS
+  // BLACK BACKGROUND FOR MULTI-LINE CODE BLOCKS
   pre: (props: any) => (
     <pre className="border-3 border-black bg-black p-4 font-mono font-bold text-xs text-white! overflow-x-auto shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] my-6 rounded-xs" {...props} />
   ),
@@ -115,7 +115,7 @@ export default async function Page({ params }: PageProps) {
                             <MDXRemote source={content} components={mdxComponents} />
                         </div>
 
-                        {/* Finial Accent End Marker */}
+                        {/* Final Accent End Marker */}
                         <div className="flex items-center justify-center gap-4 font-mono text-xs font-black text-slate-400 pt-8 border-t-2 border-black/10 border-dashed">
                             <span>◈ ◈ ◈</span>
                             <span className="text-black">[ END_OF_CHAPTER ]</span>

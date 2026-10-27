@@ -11,7 +11,7 @@ endDate: "2021-03"
 ongoing: false
 isCommercial: true
 access: "protected"
-impact: "Engineered high-durability frontend input arrays supporting 4 simultaneous users in high-traffic medical conditions."
+impact: "Integrated tap functionality for a general public facing touch wall."
 ---
 
 # Camden History Mural Interpretive Touchwall

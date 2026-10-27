@@ -11,7 +11,7 @@ endDate: "2021-03"
 ongoing: false
 isCommercial: true
 access: "protected"
-impact: "Engineered high-durability frontend input arrays supporting 4 simultaneous users in high-traffic medical conditions."
+impact: "Provided comprehensive quality assurance and end-to-end evaluation for an online education platform, identifying and resolving over a hundred critical content and functional discrepancies prior to deployment."
 ---
 
 # Under One Flag

@@ -26,11 +26,11 @@ export default async function ProjectSubPage({ params }: PageProps) {
     if (!project) notFound();
 
     return (
-        // 💡 Base page canvas locks down to crisp solid black with highly readable white navigation items
+        // Base page canvas
         <main className="min-h-screen bg-black text-white font-sans antialiased py-16 px-4 selection:bg-white selection:text-black">
             <div className="container mx-auto max-w-3xl">
                 
-                {/* Vintage Game-Style Navigation Return Link */}
+                {/* Navigation Return Link */}
                 <Link 
                     href={backPath} 
                     className="font-mono text-xs font-black uppercase tracking-wider text-slate-400 hover:text-white transition-colors mb-10 inline-block"
@@ -38,19 +38,19 @@ export default async function ProjectSubPage({ params }: PageProps) {
                     ← RETURN
                 </Link>
 
-                {/* 🚀 Main Project Page Container Panel (Forced White Canvas Base Layer) */}
+                {/* Main Project Page Container Panel */}
                 <div className="manga-panel bg-white overflow-hidden mb-16 text-black select-text">
                     
-                    {/* Solid Pitch Black Header Label Bar */}
+                    {/* Header Label Bar */}
                     <div className="bg-black text-white px-5 py-2 flex justify-between items-center font-mono text-[10px] font-black uppercase tracking-widest">
-                        <span>PROJECT_MANUSCRIPT // BUILT_SYSTEM</span>
+                        <span>PROJECT_CONTENTS // Kendal Mitchell</span>
                         <span className="text-slate-400">ID: {project.slug.slice(0, 6)}</span>
                     </div>
 
                     {/* Content Section Padding Container */}
                     <div className="p-6 md:p-10 space-y-8">
                         
-                        {/* 🚀 Project Cover Image Frame with Thick Solid Ink Linework */}
+                        {/* Project Cover Image Frame */}
                         <div className="relative aspect-video w-full overflow-hidden border-3 border-black shadow-[4px_4px_0px_0px_#000000]">
                             <img 
                                 src={project.image} 
@@ -69,7 +69,7 @@ export default async function ProjectSubPage({ params }: PageProps) {
                                     {project.description}
                                 </p>
 
-                                {/* System Properties Enclosed inside Retro Brackets */}
+                                {/* System Properties */}
                                 <div className="flex flex-wrap gap-1.5 font-mono text-[10px] font-bold text-slate-500 pt-1">
                                     {project.tags?.map((tag: string, idx: number) => (
                                         <span key={idx} className="text-black uppercase">
@@ -79,7 +79,7 @@ export default async function ProjectSubPage({ params }: PageProps) {
                                 </div>
                             </div>
 
-                            {/* 🚀 Interactive External Button Dashboard Panel (Tactile Block Shadows) */}
+                            {/* External Button Dashboard Panel */}
                             {(project.link !== "#" || project.github || project.itch) && (
                                 <div className="flex flex-wrap gap-3 md:flex-col min-w-35 font-mono text-xs font-black uppercase">
                                     {project.link && project.link !== "#" && (
@@ -116,18 +116,18 @@ export default async function ProjectSubPage({ params }: PageProps) {
                             )}
                         </div>
 
-                        {/* 🚀 Core Markdown Content Render Block */}
-                        {/* Custom Space Grotesk CSS rules apply via the .prose tag */}
+                        {/* Markdown Content Render Block */}
+                        {/* applying CSS rules via .prose tag */}
                         <article className="prose max-w-none text-black select-text">
                             <div className="whitespace-pre-line">
                                 {project.content}
                             </div>
                         </article>
 
-                        {/* Anthology Chapter Structural Finish Line Badge */}
+                        {/* Chapter Finish Line Badge */}
                         <div className="flex items-center justify-center gap-4 font-mono text-xs font-black text-slate-400 pt-8 border-t-2 border-black/10 border-dashed select-none">
                             <span>◈ ◈ ◈</span>
-                            <span className="text-black">[ END_OF_MANUSCRIPT ]</span>
+                            <span className="text-black">[ END_OF_CONTENT ]</span>
                             <span>◈ ◈ ◈</span>
                         </div>
 

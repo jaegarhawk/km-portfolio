@@ -217,7 +217,7 @@ const Articles: React.FC<ArticlesProps> = async ({
             {/* Search/Filter Zero Results Handling State */}
             {currentDisplayedPosts.length === 0 && (
                 <div className="text-center py-16 font-mono font-black border-3 border-dashed border-black rounded-sm bg-white text-black p-4 shadow-[6px_6px_0px_0px_#000000]">
-                    [!] MANUSCRIPT_EMPTY: ZERO COPIES FOUND FOR SPECIFIED INK QUERY
+                    [!] NO RESULTS FOUND: NO CONTENT AVAILABLE FOR SPECIFIED QUERY
                 </div>
             )}
 
